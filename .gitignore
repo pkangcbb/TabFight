@@ -10,8 +10,8 @@ data/raw/
 data/combined/
 
 # Results (optional - comment out if you want to push results)
-results/raw/
-results/figures/
+# results/raw/
+# results/figures/
 
 # Environment
 .env
