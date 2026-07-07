@@ -10,6 +10,7 @@ import os
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.model_selection import StratifiedShuffleSplit
+from sklearn.model_selection import StratifiedShuffleSplit
 
 # get the root of the project regardless of where script is run from
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,8 +27,8 @@ RETURNS:
 """
 def load_dataset(name):
     paths = {
-        'mi': os.path.join(ROOT, 'data/combined/edin_mi_data.csv'),
-        'bc': os.path.join(ROOT, 'data/combined/wdbc_data.csv')
+        'MI':           os.path.join(ROOT, 'data/combined/edin_mi_data.csv'),
+        'BreastCancer': os.path.join(ROOT, 'data/combined/wdbc_data.csv'),
     }
 
     if name not in paths: 
@@ -65,13 +66,13 @@ def preprocess(X_train, X_test):
     cat_cols = X_train.select_dtypes(include=['object', 'category']).columns
 
     # --- impute numeric column --- #
-    if num_cols:
+    if len(num_cols) > 0:
         imputer = SimpleImputer(strategy='median')
         X_train[num_cols] = imputer.fit_transform(X_train[num_cols])
         X_test[num_cols] = imputer.transform(X_test[num_cols])
 
     # --- impute and encode categorical columns --- #
-    if cat_cols:
+    if len(cat_cols) > 0:
         # impute with most frequent category
         cat_imputer = SimpleImputer(strategy='most_frequent')
         X_train[cat_cols] = cat_imputer.fit_transform(X_train[cat_cols])
@@ -99,10 +100,10 @@ RETURNS:
     X_subsample - pd.DataFrame
     y_subsample - pd.Series
 """
-def subsample(X_train, y_train, n, random_state=None):
-    if n > len(X_train):
-        raise ValueError(f"Subsample size n={n} cannot be larger than dataset size {len(X_train)}")
-    
+def subsample(X_train, y_train, n, random_state=42):
+    if n is None or n >= len(X_train):
+        return X_train.reset_index(drop=True), y_train.reset_index(drop=True)
+
     sss = StratifiedShuffleSplit(
         n_splits=1,
         train_size=n,
