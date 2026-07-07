@@ -8,6 +8,7 @@ import os
 import sys
 import time
 import warnings
+import traceback
 warnings.filterwarnings('ignore')
 
 import numpy as np
@@ -116,6 +117,7 @@ def run_benchmark():
 
                     except Exception as e:
                         print(f"    [{model_name}] FAILED: {e}")
+                        print(traceback.format_exc())
                         results.append({
                             'dataset':    dataset_name,
                             'fold':       fold_idx,

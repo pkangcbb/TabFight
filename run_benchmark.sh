@@ -14,5 +14,10 @@ source activate tabfight
 # go to project directory
 cd ~/TabFight
 
+# load secrets from .env
+set -a
+source .env
+set +a
+
 # run benchmark
 python scripts/run_benchmark.py
