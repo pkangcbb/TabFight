@@ -29,4 +29,4 @@ N_SEARCH_ITER   = 50   # random search configurations per model
 N_INNER_SPLITS  = 3    # inner CV folds for tuning
 
 # Hardware
-DEVICE          = 'cpu'   # change to 'cuda' if you have a GPU
+DEVICE = 'cuda' 
