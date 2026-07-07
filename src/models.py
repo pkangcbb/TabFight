@@ -53,12 +53,63 @@ def get_gbdt_models():
     return models
 
 
-"""
-get _all_models
+def get_tfm_models():
+    """
+    Tabular Foundation Models — zero shot, no tuning needed.
+    """
+    from tabpfn import TabPFNClassifier
+    from tabicl import TabICLClassifier
 
-PURPOSE: Returns the full model registry as {name: model_instance}.
-"""
+    models = {}
+
+    models['TabPFN'] = TabPFNClassifier(
+        device=DEVICE,
+        random_state=RANDOM_STATE,
+    )
+
+    models['TabICL'] = TabICLClassifier(
+        device=DEVICE,
+        random_state=RANDOM_STATE,
+    )
+
+    return models
+
+
+def get_dl_models():
+    """
+    Deep learning models via PyTorch Tabular.
+    These need feature column names passed at fit time —
+    handled in run_benchmark.py.
+    """
+    from pytorch_tabular import TabularModel
+    from pytorch_tabular.models import (
+        TabNetModelConfig,
+        TabTransformerConfig,
+        FTTransformerConfig,
+        GANDALFConfig,
+    )
+    from pytorch_tabular.config import (
+        DataConfig,
+        TrainerConfig,
+        OptimizerConfig,
+    )
+
+    models = {}
+
+    models['TabNet']         = 'TabNet'
+    models['TabTransformer'] = 'TabTransformer'
+    models['FTTransformer']  = 'FTTransformer'
+    models['GANDALF']        = 'GANDALF'
+
+    return models
+
+
 def get_all_models():
+    """
+    Returns the full model registry.
+    Call get_gbdt_models() alone to test pipeline quickly.
+    """
     models = {}
     models.update(get_gbdt_models())
+    models.update(get_tfm_models())
     return models

@@ -17,12 +17,15 @@ DATASETS = {
 TARGET_COL = 'label'
 
 # Cross-validation
-N_SPLITS        = 5
-N_REPEATS       = 10
+# N_SPLITS        = 5
+# N_REPEATS       = 10
+N_SPLITS    = 2
+N_REPEATS   = 1
 RANDOM_STATE    = 42
 
 # Training size ablation
-TRAIN_SIZES     = [50, 100, 200, 500, None]  # None = full training set
+# TRAIN_SIZES     = [50, 100, 200, 500, None]  # None = full training set
+TRAIN_SIZES = [50, None]
 
 # Hyperparameter tuning
 N_SEARCH_ITER   = 50   # random search configurations per model
