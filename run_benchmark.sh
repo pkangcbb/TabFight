@@ -5,7 +5,8 @@
 #SBATCH --time=12:00:00
 #SBATCH --mem=32G
 #SBATCH --cpus-per-task=8
-#SBATCH --partition=general
+#SBATCH --gpus=1
+#SBATCH --partition=gpu
 
 # activate your conda environment
 source activate tabfight
