@@ -109,6 +109,8 @@ def run_benchmark():
                             'brier':      metrics['brier'],
                             'train_time': t_train,
                             'inf_time':   t_inf,
+                            'y_prob':     ','.join(map(str, y_prob.tolist())), 
+                            'y_true':     ','.join(map(str, y_test.tolist())),
                         })
 
                         print(f"    [{model_name}] n={actual_train_size} "
@@ -128,6 +130,8 @@ def run_benchmark():
                             'brier':      np.nan,
                             'train_time': np.nan,
                             'inf_time':   np.nan,
+                            'y_prob':     np.nan,
+                            'y_true':     np.nan,
                         })
 
                     # save after every model run
