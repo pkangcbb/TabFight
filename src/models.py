@@ -103,6 +103,18 @@ def get_dl_models():
 
     return models
 
+def get_linear_models():
+    from sklearn.linear_model import LogisticRegression
+    
+    models = {}
+    
+    models['LogisticRegression'] = LogisticRegression(
+        max_iter=1000,
+        random_state=RANDOM_STATE,
+        n_jobs=-1,
+    )
+    
+    return models
 
 def get_all_models():
     """
@@ -111,5 +123,6 @@ def get_all_models():
     """
     models = {}
     models.update(get_gbdt_models())
+    models.update(get_linear_models())
     models.update(get_tfm_models())
     return models
