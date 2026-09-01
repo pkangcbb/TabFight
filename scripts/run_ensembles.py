@@ -86,7 +86,7 @@ def run_ensembles():
 
                         probs  = np.array(df_fold['y_prob'].tolist())
                         y_true = df_fold.iloc[0]['y_true']
-                        weights = [model_aurocs.get(m, 0.5) for m in combo]
+                        weights = [model_aurocs.get(m, 0.5) for m in df_fold['model'].tolist()]
 
                         if len(combo) == 1:
                             prob_simple   = probs[0]
